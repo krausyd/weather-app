@@ -42,7 +42,7 @@ function showTodays(cityName, current) {
     const div = document.getElementById("city-current");
     div.innerHTML = "";
     const h2 = document.createElement("h2");
-    h2.innerText = `${cityName} (${getFormatedDate()})`;
+    h2.innerText = `${cityName} (${getFormatedDate(new Date())})`;
     div.appendChild(h2);
 
     const ul = document.createElement("ul");
@@ -76,19 +76,58 @@ function showTodays(cityName, current) {
     ul.appendChild(liUvi);
 
     div.appendChild(ul);
-    console.log(current);
 }
 
-function getFormatedDate() {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = today.getFullYear();
+function getFormatedDate(date) {
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = date.getFullYear();
     return  mm + '/' + dd + '/' + yyyy;
 }
 
 function showFiveDayForecast(daily) {
-    console.log(daily);
+    const div = document.getElementById("city-forecast");
+    div.innerHTML = "";
+    const h2 = document.createElement("h2");
+    h2.innerText = "5-Day Forecast:";
+    div.appendChild(h2);
+
+    for(let i=1; i<daily.length && i<6; i++) {
+        const dayData = daily[i];
+        const divOneDay = document.createElement("div");
+        
+        const h3 = document.createElement("h3");
+        h3.innerText = getFormatedDate(new Date(dayData.dt*1000));
+        divOneDay.appendChild(h3);
+
+        const ul = document.createElement("ul");
+
+        const liConditions = document.createElement("li");
+        const imgConditions = document.createElement("img");
+        imgConditions.setAttribute("src", `http://openweathermap.org/img/wn/${dayData.weather[0].icon}.png`);
+        liConditions.appendChild(imgConditions);
+        ul.appendChild(liConditions);
+
+        const liMinTemp = document.createElement("li");
+        liMinTemp.innerText = `Min Temp: ${dayData.temp.min} °F`;
+        ul.appendChild(liMinTemp);
+
+        const liMaxTemp = document.createElement("li");
+        liMaxTemp.innerText = `Max Temp: ${dayData.temp.max} °F`;
+        ul.appendChild(liMaxTemp);
+    
+        const liWind = document.createElement("li");
+        liWind.innerText = `Wind: ${dayData.wind_speed} MPH`;
+        ul.appendChild(liWind);
+    
+        const liHumidity = document.createElement("li");
+        liHumidity.innerText = `Humidity: ${dayData.humidity}%`;
+        ul.appendChild(liHumidity);
+
+        divOneDay.appendChild(ul);
+
+        div.appendChild(divOneDay);
+    }
 }
 
 function getRecentSearches() {
