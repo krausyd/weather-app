@@ -39,7 +39,11 @@ function getForecast(cityName, lat, lon) {
 }
 
 function showTodays(cityName, current) {
-    const div = document.getElementById("city-current");
+    const mainDiv = document.getElementById("forecast");
+    mainDiv.innerHTML = "";
+
+    const div = document.createElement("section");
+    div.setAttribute("id", "city-current");
     div.innerHTML = "";
     const h2 = document.createElement("h2");
     h2.innerText = `${cityName} (${getFormatedDate(new Date())})`;
@@ -60,7 +64,6 @@ function showTodays(cityName, current) {
     ul.appendChild(liHumidity);
 
     const liUvi = document.createElement("li");
-    liUvi.innerText = `UV Index: ${current.uvi}`;
     let uviColor = "purple";
     let uvi = current.uvi;
     if (uvi < 3) {
@@ -72,10 +75,12 @@ function showTodays(cityName, current) {
     } else if (uvi < 11) {
         uviColor = "red";
     }
-    liUvi.setAttribute("class", `uvi-${uviColor}`);
+    liUvi.innerHTML = 'UV Index: <span class="uvi-condition uvi-' +  uviColor + '">' + current.uvi + '</span>';
     ul.appendChild(liUvi);
 
     div.appendChild(ul);
+
+    mainDiv.appendChild(div);
 }
 
 function getFormatedDate(date) {
@@ -86,15 +91,24 @@ function getFormatedDate(date) {
 }
 
 function showFiveDayForecast(daily) {
-    const div = document.getElementById("city-forecast");
+    const mainDiv = document.getElementById("forecast");
+
+    const div = document.createElement("section");
+    div.setAttribute("id", "city-forecast");
+    div.setAttribute("class", "row");
     div.innerHTML = "";
     const h2 = document.createElement("h2");
     h2.innerText = "5-Day Forecast:";
     div.appendChild(h2);
 
+    const divEmpty = document.createElement("div");
+    divEmpty.setAttribute("class", "col-1");
+    div.appendChild(divEmpty);
+
     for(let i=1; i<daily.length && i<6; i++) {
         const dayData = daily[i];
         const divOneDay = document.createElement("div");
+        divOneDay.setAttribute("class", "col-2 day-weather");
         
         const h3 = document.createElement("h3");
         h3.innerText = getFormatedDate(new Date(dayData.dt*1000));
@@ -128,6 +142,8 @@ function showFiveDayForecast(daily) {
 
         div.appendChild(divOneDay);
     }
+
+    mainDiv.appendChild(div);
 }
 
 function getRecentSearches() {

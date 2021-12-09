@@ -5,4 +5,77 @@ html, body {
 	min-height: 100%;
 	background: #fff;
 	color: #000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+    background-color: bisque;
+    color: indianred;
+    text-align: center;
+    padding: 25px;
+}
+
+main {
+    display: flex;
+}
+
+ul {
+    list-style-type: none;
+}
+
+aside, section#forecast {
+    padding: 10px;
+}
+
+section#city-current {
+    flex: 0 0 100%;
+    border-color: indianred;
+    border-style: solid;
+    width: 100%;
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+h2, h3 {
+    color: indianred;
+}
+
+.uvi-condition {
+    font-style: normal;
+    color: white;
+    padding: 2px 15px;
+    border-radius: 5px;
+}
+.uvi-green {
+    background-color: green;
+}
+.uvi-red {
+    background-color: red;
+}
+.uvi-yellow {
+    background-color: yellow;
+}
+.uvi-orange {
+    background-color: orange;
+}
+.uvi-purple {
+    background-color: purple;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+h3 {
+    font-size: large;
+}
+
+#city-forecast {
+    padding-top: 10px;
+}
+
+.day-weather {
+    background-color: bisque;
+    margin: 5px;
 }
